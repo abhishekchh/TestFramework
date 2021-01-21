@@ -1,0 +1,76 @@
+<html>
+	<head>
+		<title>Test Report</title>
+		<style>
+		.center {
+			text-align: center;
+			border: 3px solid green;
+		}
+		
+		#report {
+			font-family: Arial, Helvetica, sans-serif;
+			border-collapse: collapse;
+			width: 100%;
+		}
+		
+		#report td, #report th {
+			border: 1px solid #ddd;
+			padding: 8px;
+			text-align: center;
+		}
+		
+		#report tr:nth-child(even) {
+			background-color: #f2f2f2;
+		}
+		
+		#report tr:hover {
+			background-color: #ddd;
+		}
+		
+		.failed {
+			background-color: red;
+		}
+		
+		.passed {
+			background-color: green;
+		}
+		
+		#report th {
+			padding-top: 12px;
+			padding-bottom: 12px;
+			text-align: left;
+			background-color: #4CAF50;
+			color: white;
+		}
+		
+		.container {
+			margin: 0 auto;
+			width: 80%;
+		}
+		
+		.header {
+		  padding: 5px;
+		  text-align: left;
+		  background: #1abc9c;
+		  color: white;
+		  font-size: 20px;
+		}
+		</style>
+	<head>
+	<body>
+		<div class="header container">
+			<h3><!-- REPORT_NAME --></h3>
+		</div>
+		<div class="container">
+			<table id="report">
+				<tr>
+					<th width="10%">Step</th>
+					<th width="10%">Result</th>
+					<th width="60%">ScreenShot</th>
+					<th width="20%">Comment</th>
+				</tr>
+				<!-- INSERT_RESULTS -->
+			</table>
+		</div>
+	</body>
+</html>

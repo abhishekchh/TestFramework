@@ -11,6 +11,7 @@
 	<properties>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
+		<io.cucumber.cucumber.version>6.9.1</io.cucumber.cucumber.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -18,56 +19,42 @@
 			<artifactId>selenium-java</artifactId>
 			<version>3.141.59</version>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-chrome-driver -->
 		<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
 			<artifactId>selenium-chrome-driver</artifactId>
 			<version>3.141.59</version>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.testng/testng -->
 		<dependency>
 			<groupId>org.testng</groupId>
 			<artifactId>testng</artifactId>
 			<version>7.1.0</version>
 			<scope>test</scope>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core -->
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
 			<artifactId>log4j-core</artifactId>
 			<version>2.13.3</version>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-java -->
 		<dependency>
 			<groupId>io.cucumber</groupId>
 			<artifactId>cucumber-java</artifactId>
-			<version>6.1.0</version>
+			<version>${io.cucumber.cucumber.version}</version>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-core -->
 		<dependency>
 			<groupId>io.cucumber</groupId>
 			<artifactId>cucumber-core</artifactId>
-			<version>6.1.0</version>
+			<version>${io.cucumber.cucumber.version}</version>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/io.cucumber/gherkin -->
-		<dependency>
-			<groupId>io.cucumber</groupId>
-			<artifactId>gherkin</artifactId>
-			<version>13.0.0</version>
-		</dependency>
-		<!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-testng -->
 		<dependency>
 			<groupId>io.cucumber</groupId>
 			<artifactId>cucumber-testng</artifactId>
-			<version>6.1.1</version>
+			<version>${io.cucumber.cucumber.version}</version>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
 		<dependency>
-			<groupId>commons-io</groupId>
-			<artifactId>commons-io</artifactId>
-			<version>2.7</version>
+			<groupId>net.masterthought</groupId>
+			<artifactId>cucumber-reporting</artifactId>
+			<version>5.4.0</version>
 		</dependency>
-
 	</dependencies>
 
 	<build>

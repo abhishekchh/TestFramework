@@ -1,6 +1,7 @@
 package com.testall.commons;
 
 import java.io.File;
+import java.time.temporal.ChronoUnit;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.LogManager;
@@ -20,17 +21,24 @@ public class AbstractTestBaseClass {
 		Utils util = new Utils();
 	}
 
-	public void takeSnapShot(String fileName) {
+	public File takeSnapShot(String fileName) {
+		
+		fileName = fileName+java.time.LocalTime.now().truncatedTo(ChronoUnit.MILLIS).toString().replace(":", "-");
+		
 		try {
 			String screenshotLocation = System.getProperty("screenshot.location");
+			String filename = screenshotLocation + fileName + ".png";
 			logger.info("Taking Screenshot");
 			TakesScreenshot scrShot = ((TakesScreenshot) driver);
 			File SrcFile = scrShot.getScreenshotAs(OutputType.FILE);
-			File DestFile = new File(screenshotLocation + fileName + ".png");
+			File DestFile = new File(filename);
 			FileUtils.copyFile(SrcFile, DestFile);
+			return DestFile;
 		} catch (Exception e) {
 			logger.error("Failed to take Screen shot {}", fileName);
+			return null;
 		}
+		
 	}
 
 	public void scroll(int x, int y) {
@@ -39,23 +47,28 @@ public class AbstractTestBaseClass {
 		jse.executeScript(updateStringReference(script, x, y));
 	}
 
-//	public void scrollByPercent(int x, int y) {
-//		JavascriptExecutor jse = (JavascriptExecutor) driver;
-//		float contentHeight = ((Number) jse.executeScript("return window.innerHeight")).intValue();
-//		float contentWidth = ((Number) jse.executeScript("return window.innerWidth")).intValue();
-//		System.out.println("contentHeight" + contentHeight);
-//		System.out.println("contentWidth" + contentWidth);
-//
-//		float scrollHeight = contentHeight * ((float)y / 100);
-//		float scrollWidth = contentWidth * ((float)x / 100);
-//
-//		String script = "window.scrollBy({},{})";
-//		jse = (JavascriptExecutor) driver;
-//		jse.executeScript(updateStringReference(script,scrollWidth ,scrollHeight ));
-//
-//	}
+	public void scrollByPercent(int x, int y) {
+		JavascriptExecutor jse = (JavascriptExecutor) driver;
+		float contentHeight = ((Number) jse.executeScript("return window.innerHeight")).intValue();
+		float contentWidth = ((Number) jse.executeScript("return window.innerWidth")).intValue();
+		System.out.println("contentHeight" + contentHeight);
+		System.out.println("contentWidth" + contentWidth);
+
+		float scrollHeight = contentHeight * ((float)y / 100);
+		float scrollWidth = contentWidth * ((float)x / 100);
+
+		String script = "window.scrollBy({},{})";
+		jse = (JavascriptExecutor) driver;
+		jse.executeScript(updateStringReference(script,scrollWidth ,scrollHeight ));
+
+	}
 	
-	
+	/**
+	 * This will scroll the visible page based on the parameters passed.
+	 * 
+	 * @param x is the total page width to be scrolled horizontally
+	 * @param y is the total page height to be scrolled vertically
+	 */
 	public void scrollByPage(int x, int y) {
 		JavascriptExecutor jse = (JavascriptExecutor) driver;
 		float contentHeight = ((Number) jse.executeScript("return window.innerHeight")).intValue();

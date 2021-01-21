@@ -21,7 +21,7 @@ Feature: Title of your feature
   I want to use this template for my feature file
 
   @tag
-  Scenario Outline: TO open website and validate
+  Scenario Outline: Validate Title
     Given I have <browser> open
     When I go to "<url>"
     Then the title of the webpage should be "<title>"
@@ -29,6 +29,22 @@ Feature: Title of your feature
     Then when i scroll the page 
 
     Examples: 
-      | browser | url                                      | title                  |
-      | chrome  | https://en.wikipedia.org/wiki/Darjeeling | Darjeeling - Wikipedia |
-      | firefox | https://en.wikipedia.org/wiki/Darjeeling | Darjeeling - Wikipedia |
+      | browser | url                                      	| title                  |
+      | chrome  | https://en.wikipedia.org/wiki/Darjeeling 	| Darjeeling - Wikipedia |
+#      | chrome  | https://en.wikipedia.org/wiki/Bangalore 	| Bangalore - Wikipedia |
+#      | firefox | https://en.wikipedia.org/wiki/Darjeeling | Darjeeling - Wikipedia |
+
+#
+# @tag
+#  Scenario Outline: This is different Scenario
+#    Given I have <browser> open
+#    When I go to "<url>"
+#    Then the title of the webpage should be "<title>"
+#    Then the page should contain "Log in" link text
+#    Then when i scroll the page 
+#
+#    Examples: 
+#      | browser | url                                      	| title                  |
+#      | chrome  | https://en.wikipedia.org/wiki/Darjeeling 	| Darjeeling - Wikipedia |
+##      | chrome  | https://en.wikipedia.org/wiki/Bangalore 	| Bangalore - Wikipedia |
+##      | firefox | https://en.wikipedia.org/wiki/Darjeeling | Darjeeling - Wikipedia |
