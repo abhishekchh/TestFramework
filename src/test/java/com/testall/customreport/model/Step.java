@@ -10,7 +10,7 @@ public class Step {
 	
 	boolean isPassed;
 	
-	String screenShotLocation="";
+	String screenShotData="";
 	
 	String comment="";
 	
@@ -21,14 +21,14 @@ public class Step {
 	public Step(String stepName, boolean isPassed, String screenShotPath, String comment){
 		this.stepName = stepName;
 		this.isPassed = isPassed;
-		this.screenShotLocation =screenShotPath;
+		this.screenShotData =screenShotPath;
 		this.comment = comment;
 	}
 	
 	public Step(String stepName, boolean isPassed, File screenShotPath, String comment){
 		this.stepName = stepName;
 		this.isPassed = isPassed;
-		this.screenShotLocation =Utils.encodeFileToBase64Binary(screenShotPath);
+		this.screenShotData =Utils.encodeFileToBase64Binary(screenShotPath);
 		this.comment = comment;
 	}
 	
@@ -49,15 +49,15 @@ public class Step {
 	}
 	
 	public String getScreenShotLocation() {
-		return screenShotLocation;
+		return screenShotData;
 	}
 	
 	public void setScreenShotLocation(String screenShotLocation) {
-		this.screenShotLocation = screenShotLocation;
+		this.screenShotData = screenShotLocation;
 	}
 	
 	public void setScreenShotLocation(File screenShotPath) {
-		this.screenShotLocation = Utils.encodeFileToBase64Binary(screenShotPath);
+		this.screenShotData = Utils.encodeFileToBase64Binary(screenShotPath);
 	}
 	
 	public String getComment() {
@@ -74,7 +74,7 @@ public class Step {
 				+ "				<td width=\"10%\" class=\""+getRunStatus().toLowerCase()+"\">"+getRunStatus()+"</td>\r\n"
 				+ "				<td width=\"70%\"><a href=\""
 				+""//Href data goes here
-				+"\"><img src=\"data:image/png;base64,"+screenShotLocation+"\"\r\n"
+				+"\"><img src=\"data:image/png;base64,"+screenShotData+"\"\r\n"
 				+ "						style=\"width: 500px;\"></a></td>\r\n"
 				+ "				<td width=\"20%\">"+comment+"</td>\r\n"
 				+ "			</tr>"
@@ -84,6 +84,14 @@ public class Step {
 		
 		return htmltablerow;
 	}
+	
+	
+	
+	
+	
+	
+	
+	
 
 	private String getRunStatus() {
 		

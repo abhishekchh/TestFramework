@@ -1,7 +1,12 @@
 package com.testall.commons;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.IOException;
 import java.time.temporal.ChronoUnit;
+
+import javax.imageio.ImageIO;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.logging.log4j.LogManager;
@@ -10,6 +15,9 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
+
+import com.assertthat.selenium_shutterbug.core.Capture;
+import com.assertthat.selenium_shutterbug.core.Shutterbug;
 
 public class AbstractTestBaseClass {
 
@@ -41,6 +49,13 @@ public class AbstractTestBaseClass {
 		
 	}
 
+	public byte[] getFullPageScreenShot() throws IOException {
+	    BufferedImage image = Shutterbug.shootPage(driver, Capture.FULL_SCROLL).getImage();
+	    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+	    ImageIO.write(image, "png", outputStream);
+	    return outputStream.toByteArray();
+	}
+	
 	public void scroll(int x, int y) {
 		String script = "window.scrollBy({},{})";
 		JavascriptExecutor jse = (JavascriptExecutor) driver;

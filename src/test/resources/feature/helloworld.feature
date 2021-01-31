@@ -27,6 +27,7 @@ Feature: Title of your feature
     Then the title of the webpage should be "<title>"
     Then the page should contain "Log in" link text
     Then when i scroll the page 
+    Then I save full page Screenshot
 
     Examples: 
       | browser | url                                      	| title                  |

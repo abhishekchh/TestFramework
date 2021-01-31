@@ -1,6 +1,8 @@
 package com.testall.cucumber.stepdefination;
 
 import java.io.File;
+import java.io.IOException;
+import java.util.Base64;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.WebElement;
@@ -90,11 +92,27 @@ public class StepDefination extends AbstractTestBaseClass {
 		reportbuilder.addStep(stepresult);
 
 	}
+	
+	@Then("I save full page Screenshot")
+	public void i_save_full_page_screenshot() throws Exception {
+	   byte[] screenBytes = getFullPageScreenShot();
+	   String ScreenEncoded = Base64.getEncoder().encodeToString(screenBytes);
+	   
+	   Step stepresult = new Step("name", true, ScreenEncoded, "comment");
+		reportbuilder.addStep(stepresult);
+	   
+	}
 
 	@After
-	public void teardown() {
+	public void teardown(Scenario scenario) {
+		
+		if (scenario.isFailed()) {
+		  
+		}
+		
 		driver.close();
 		reportbuilder.writeReport();
 	}
+	
 
 }
