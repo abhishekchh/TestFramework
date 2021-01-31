@@ -3,14 +3,17 @@ package com.testall.customreport;
 import java.io.File;
 import java.time.temporal.ChronoUnit;
 
+import com.testall.commons.BaseClass;
 import com.testall.commons.Utils;
 import com.testall.customreport.model.Step;
 
-public class Report {
+public class Report extends BaseClass{
 
 	String htmlString;
 	String reportLocation;
 	private static int count = 0;
+
+	private boolean isReportFlushed = false;
 
 	public Report() {
 		htmlString = Utils.readResourceFile("reportFormat.html");
@@ -59,10 +62,17 @@ public class Report {
 		try {
 			Utils.writeFile(htmlString, reportLocation);
 		} catch (Exception e) {
+			logger.info(e.getMessage());
 		}
 
+		isReportFlushed = true;
 		System.out.println("closing report builder");
+	}
 
+	protected void finalize() {
+		if (!isReportFlushed) {
+			writeReport();
+		}
 	}
 
 }

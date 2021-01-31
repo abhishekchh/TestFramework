@@ -19,14 +19,15 @@ import org.openqa.selenium.WebDriver;
 import com.assertthat.selenium_shutterbug.core.Capture;
 import com.assertthat.selenium_shutterbug.core.Shutterbug;
 
-public class AbstractTestBaseClass {
+public class AbstractTestBaseClass extends BaseClass {
 
-	public Logger logger = LogManager.getLogger(this.getClass());
+	
 
 	public WebDriver driver;
 
 	public AbstractTestBaseClass() {
 		Utils util = new Utils();
+		logger.info("logger");
 	}
 
 	public File takeSnapShot(String fileName) {
@@ -66,8 +67,8 @@ public class AbstractTestBaseClass {
 		JavascriptExecutor jse = (JavascriptExecutor) driver;
 		float contentHeight = ((Number) jse.executeScript("return window.innerHeight")).intValue();
 		float contentWidth = ((Number) jse.executeScript("return window.innerWidth")).intValue();
-		System.out.println("contentHeight" + contentHeight);
-		System.out.println("contentWidth" + contentWidth);
+		logger.info("contentHeight" + contentHeight);
+		logger.info("contentWidth" + contentWidth);
 
 		float scrollHeight = contentHeight * ((float)y / 100);
 		float scrollWidth = contentWidth * ((float)x / 100);
@@ -102,14 +103,14 @@ public class AbstractTestBaseClass {
 		for (int i : ref) {
 			str = str.replaceFirst("\\{\\}", String.valueOf(i));
 		}
-		System.out.println("updated String is "+str);
+		logger.info("updated String is "+str);
 		return str;
 	}
 	private String updateStringReference(String str, float... ref) {
 		for (float i : ref) {
 			str = str.replaceFirst("\\{\\}", String.valueOf(i));
 		}
-		System.out.println("updated String is "+str);
+		logger.info("updated String is "+str);
 		return str;
 	}
 }

@@ -1,7 +1,6 @@
 package com.testall.cucumber.stepdefination;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.Base64;
 import java.util.concurrent.TimeUnit;
 
@@ -31,19 +30,15 @@ public class StepDefination extends AbstractTestBaseClass {
 
 	@Before
 	public void setupTest(Scenario scenario) {
-
 		reportbuilder = new Report();
-//		reportbuilder.setReportFileLocation("C:\\Users\\Abhishek\\Desktop\\temp\\reports\\report.html");
-
 		scenarioNamelong = scenario.getName();
 		if (scenarioNamelong.length() > 20) {
 			scenarioNameShort = scenarioNamelong.substring(0, 20);
-		}else {
+		} else {
 			scenarioNameShort = scenarioNamelong;
 		}
 		reportbuilder.setReportFileName(scenarioNumber + "_" + scenarioNameShort);
 		reportbuilder.setReportName(scenarioNamelong);
-
 		scenarioNumber++;
 	}
 
@@ -66,10 +61,9 @@ public class StepDefination extends AbstractTestBaseClass {
 	@Then("the title of the webpage should be {string}")
 	public void the_title_of_the_webpage_should_be_success(String titleExpected) {
 		File scPath = takeSnapShot(scenarioNameShort);
-		logger.error("title {}", driver.getTitle());
+		logger.info("title {}", driver.getTitle());
 		Step stepresult = new Step("name", true, scPath, "comment");
 		reportbuilder.addStep(stepresult);
-
 		Assert.assertEquals(driver.getTitle(), titleExpected);
 	}
 
@@ -92,30 +86,26 @@ public class StepDefination extends AbstractTestBaseClass {
 		reportbuilder.addStep(stepresult);
 
 	}
-	
+
 	@Then("I save full page Screenshot")
 	public void i_save_full_page_screenshot() throws Exception {
-	   byte[] screenBytes = getFullPageScreenShot();
-	   String ScreenEncoded = Base64.getEncoder().encodeToString(screenBytes);
-	   
-	   Step stepresult = new Step("name", true, ScreenEncoded, "comment");
+		byte[] screenBytes = getFullPageScreenShot();
+		String ScreenEncoded = Base64.getEncoder().encodeToString(screenBytes);
+		Step stepresult = new Step("name", true, ScreenEncoded, "comment");
 		reportbuilder.addStep(stepresult);
-	   
+
 	}
 
 	@After
 	public void teardown(Scenario scenario) throws Exception {
-		
 		if (scenario.isFailed()) {
 			byte[] screenBytes = getFullPageScreenShot();
-			   String ScreenEncoded = Base64.getEncoder().encodeToString(screenBytes);
-			   Step stepresult = new Step("name", false, ScreenEncoded, "comment");
-				reportbuilder.addStep(stepresult);
+			String ScreenEncoded = Base64.getEncoder().encodeToString(screenBytes);
+			Step stepresult = new Step("name", false, ScreenEncoded, "comment");
+			reportbuilder.addStep(stepresult);
 		}
-		
 		driver.close();
 		reportbuilder.writeReport();
 	}
-	
 
 }
