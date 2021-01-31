@@ -104,10 +104,13 @@ public class StepDefination extends AbstractTestBaseClass {
 	}
 
 	@After
-	public void teardown(Scenario scenario) {
+	public void teardown(Scenario scenario) throws Exception {
 		
 		if (scenario.isFailed()) {
-		  
+			byte[] screenBytes = getFullPageScreenShot();
+			   String ScreenEncoded = Base64.getEncoder().encodeToString(screenBytes);
+			   Step stepresult = new Step("name", false, ScreenEncoded, "comment");
+				reportbuilder.addStep(stepresult);
 		}
 		
 		driver.close();
