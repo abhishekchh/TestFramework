@@ -1,12 +1,7 @@
 package com.testall.customreport;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.time.temporal.ChronoUnit;
-import java.time.temporal.TemporalUnit;
-import java.util.Base64;
 
 import com.testall.commons.Utils;
 import com.testall.customreport.model.Step;
@@ -15,6 +10,7 @@ public class Report {
 
 	String htmlString;
 	String reportLocation;
+	private static int count = 0;
 
 	public Report() {
 		htmlString = Utils.readResourceFile("reportFormat.html");
@@ -24,9 +20,9 @@ public class Report {
 		this();
 		setReportFileName(reportFileName);
 	}
-	
+
 	public void setReportName(String reporName) {
-		htmlString= htmlString.replace("<!-- REPORT_NAME -->", reporName);
+		htmlString = htmlString.replace("<!-- REPORT_NAME -->", reporName);
 	}
 
 	public static void main(String a[]) {
@@ -44,7 +40,7 @@ public class Report {
 	}
 
 	public void setReportFileName(String reportFileName) {
-		String reportPath = System.getProperty("report.location") + reportFileName;
+		String reportPath = System.getProperty("report.location") + reportFileName + "_" + count++;
 		File file = new File(reportPath);
 		File theDir = new File(file.getParent());
 		if (!theDir.exists()) {
@@ -53,9 +49,6 @@ public class Report {
 		this.reportLocation = reportPath.trim() + ".html";
 	}
 
-	
-	
-	
 	public void addStep(Step step) {
 
 		htmlString = htmlString.replace("<!-- INSERT_RESULTS -->", step.toHtmlTableString());
