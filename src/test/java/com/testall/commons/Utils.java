@@ -84,14 +84,14 @@ public class Utils {
 	}
 
 	public static String addDays(String inputDate, int daysToAdd, String dateFormat) throws ParseException {
-		String output = addDate(inputDate, daysToAdd, Calendar.YEAR, dateFormat);
+		String output = addDate(inputDate, daysToAdd, Calendar.DATE, dateFormat);
 		logger.info("Old Date {}, days added {}, Updated date {}", inputDate, daysToAdd, output);
 
 		return output;
 	}
 
 	public static String addMonths(String inputDate, int monthsToAdd, String dateFormat) throws ParseException {
-		String output = addDate(inputDate, monthsToAdd, Calendar.YEAR, dateFormat);
+		String output = addDate(inputDate, monthsToAdd, Calendar.MONTH, dateFormat);
 		;
 		logger.info("Old Date {}, Months added {}, Updated date {}", inputDate, monthsToAdd, output);
 		return output;
@@ -128,5 +128,9 @@ public class Utils {
 		c.add(calanderType, toAdd);
 		return sdf.format(c.getTime());
 	}
+	
+//	public static void main(String[] args) {
+//		System.out.println(addDays("01/03/2021", 5, "dd/MM/yyyy"));
+//	}
 
 }
