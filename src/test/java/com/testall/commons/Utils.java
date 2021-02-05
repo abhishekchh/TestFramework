@@ -9,11 +9,20 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Base64;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Properties;
 import java.util.Set;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 public class Utils {
+
+	public static Logger logger = LogManager.getLogger(Utils.class.getName());
 
 	public Utils() {
 		loadProperties();
@@ -55,23 +64,69 @@ public class Utils {
 		writer.write(fileContent);
 		writer.close();
 	}
-	
-	 public static String encodeFileToBase64Binary(File file){
-         String encodedfile = null;
-         try {
-             FileInputStream fileInputStreamReader = new FileInputStream(file);
-             byte[] bytes = new byte[(int)file.length()];
-             fileInputStreamReader.read(bytes);
-             encodedfile = Base64.getEncoder().encodeToString(bytes);
-         } catch (FileNotFoundException e) {
-             // TODO Auto-generated catch block
-             e.printStackTrace();
-         } catch (IOException e) {
-             // TODO Auto-generated catch block
-             e.printStackTrace();
-         }
 
-         return encodedfile;
-     }
+	public static String encodeFileToBase64Binary(File file) {
+		String encodedfile = null;
+		try {
+			FileInputStream fileInputStreamReader = new FileInputStream(file);
+			byte[] bytes = new byte[(int) file.length()];
+			fileInputStreamReader.read(bytes);
+			encodedfile = Base64.getEncoder().encodeToString(bytes);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return encodedfile;
+	}
+
+	public static String addDays(String inputDate, int daysToAdd, String dateFormat) throws ParseException {
+		String output = addDate(inputDate, daysToAdd, Calendar.YEAR, dateFormat);
+		logger.info("Old Date {}, days added {}, Updated date {}", inputDate, daysToAdd, output);
+
+		return output;
+	}
+
+	public static String addMonths(String inputDate, int monthsToAdd, String dateFormat) throws ParseException {
+		String output = addDate(inputDate, monthsToAdd, Calendar.YEAR, dateFormat);
+		;
+		logger.info("Old Date {}, Months added {}, Updated date {}", inputDate, monthsToAdd, output);
+		return output;
+	}
+
+	public static String addYears(String inputDate, int yearsToAdd, String dateFormat) throws ParseException {
+		String output = addDate(inputDate, yearsToAdd, Calendar.YEAR, dateFormat);
+		logger.info("Old Date {}, Years added {}, Updated date {}", inputDate, yearsToAdd, output);
+		return output;
+	}
+
+	public static String getGreaterDate(String date1, String date2, String dateFormat) throws ParseException {
+		SimpleDateFormat sdf = new SimpleDateFormat(dateFormat);
+		Date d1 = sdf.parse(date1);
+		Date d2 = sdf.parse(date2);
+
+		if (d1.compareTo(d2) > 0) {
+			return date1;
+		} else if (d1.compareTo(d2) < 0) {
+			return date2;
+		} else if (date1.compareTo(date2) == 0) {
+			return date1;
+		} else {
+			return null;
+		}
+
+	}
+
+	private static String addDate(String inputDate, int toAdd, int calanderType, String dateFormat) throws ParseException {
+		SimpleDateFormat sdf = new SimpleDateFormat(dateFormat);
+		Date oldDate = sdf.parse(inputDate);
+		Calendar c = Calendar.getInstance();
+		c.setTime(oldDate);
+		c.add(calanderType, toAdd);
+		return sdf.format(c.getTime());
+	}
 
 }

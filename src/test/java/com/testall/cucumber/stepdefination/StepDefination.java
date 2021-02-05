@@ -26,7 +26,7 @@ public class StepDefination extends AbstractTestBaseClass {
 	String scenarioNameShort;
 	String scenarioNamelong;
 	static int scenarioNumber;
-	Report reportbuilder;
+
 
 	@Before
 	public void setupTest(Scenario scenario) {
